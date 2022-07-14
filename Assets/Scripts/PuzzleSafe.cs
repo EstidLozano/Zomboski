@@ -9,6 +9,7 @@ public class PuzzleSafe : Puzzle {
   private int currentNum = 0;
   protected override void Start() {
     base.Start();
+    index = 1;
     Util.SetVisible(blood, false);
   }
   protected void Update() {
@@ -40,7 +41,15 @@ public class PuzzleSafe : Puzzle {
     }
     text.text = string.Join("", numbers.Select(n => n == -1 ? "" : n.ToString()).ToArray());
   }
-  public override void OnFailed() {
+  public override void Open() {
+    base.Open();
+    AudManage.Get(AudManage.laboratory).Stop();
+    AudManage.Get(AudManage.challenge2).Play();
+  }
+  public override void Close() {
+    base.Close();
+    AudManage.Get(AudManage.challenge2).Stop();
+    AudManage.Get(AudManage.laboratory).Play();
   }
   public override void OnSolved() {
     base.OnSolved();

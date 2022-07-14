@@ -2,7 +2,6 @@
 
 public class Interactive : MonoBehaviour {
   public Puzzle puzzle;
-  public AudioSource audOpen;
   private SpriteRenderer render;
   protected void Start() {
     render = GetComponent<SpriteRenderer>();
@@ -19,9 +18,7 @@ public class Interactive : MonoBehaviour {
   }
   protected void OnMouseDown() {
     if (canInteract()) {
-      Util.SetVisible(puzzle.gameObject, true);
-      Puzzle.active = puzzle;
-      audOpen.Play();
+      puzzle.Open();
     }
   }
   protected bool canInteract() {

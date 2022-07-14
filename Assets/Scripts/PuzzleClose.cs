@@ -13,6 +13,6 @@ public class PuzzleClose : MonoBehaviour {
     render.color = Color.white;
   }
   protected void OnMouseDown() {
-    Util.SetVisible(puzzle.gameObject, false);
+    puzzle.Close();
   }
 }

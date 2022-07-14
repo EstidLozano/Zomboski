@@ -1,20 +1,27 @@
 using UnityEngine;
-public abstract class Puzzle : MonoBehaviour {
-  public static Puzzle active;
+public class Puzzle : MonoBehaviour {
   public static int current;
   public int index;
   public bool solved;
-  public AudioSource audSuccess;
   protected virtual void Start() {
     Util.SetVisible(gameObject, false);
     current = 0;
     solved = false;
   }
-  public abstract void OnFailed();
-  public virtual void OnSolved() {
+  public virtual void Open() {
+    Util.SetVisible(gameObject, true);
+    AudManage.Get(AudManage.puzzleOpen).Play();
+  }
+  public virtual void Close() {
     Util.SetVisible(gameObject, false);
+  }
+  public virtual void OnFailed() {
+    Close();
+  }
+  public virtual void OnSolved() {
+    Close();
     current++;
     solved = true;
-    audSuccess.Play();
+    AudManage.Get(AudManage.success).Play();
   }
 }

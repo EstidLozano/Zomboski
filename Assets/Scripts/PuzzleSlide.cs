@@ -2,12 +2,12 @@
 using UnityEngine.SceneManagement;
 public class PuzzleSlide : Puzzle {
   public PuzzleSlideCell[] cells = new PuzzleSlideCell[9];
-  public AudioSource audSlide;
   private Vector3[] finalPositions;
   private float slideTime = 0.2f;
   private int goodCells;
   protected override void Start() {
     base.Start();
+    index = 2;
     finalPositions = new Vector3[cells.Length];
     for (int i = 0; i < cells.Length; i++) {
       finalPositions[i] = cells[i].transform.localPosition;
@@ -21,7 +21,7 @@ public class PuzzleSlide : Puzzle {
     distance = Mathf.Round(distance * 10) / 10;
     if (distance == 1f) {
       // Swap cells
-      audSlide.Play();
+      AudManage.Get(AudManage.cellSide).Play();
       if (empty.localPosition == finalPositions[cell.index]) {
         if (++goodCells == cells.Length - 1) {
           OnSolved();
@@ -60,8 +60,6 @@ public class PuzzleSlide : Puzzle {
       if (indexes[i] == i)
         goodCells++;
     }
-  }
-  public override void OnFailed() {
   }
   public override void OnSolved() {
     base.OnSolved();

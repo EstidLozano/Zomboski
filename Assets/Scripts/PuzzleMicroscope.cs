@@ -3,6 +3,7 @@
   private int remainingBad = 3;
   protected override void Start() {
     base.Start();
+    index = 0;
   }
   public void OnSubstanceClicked(bool good) {
     if (good) {
@@ -15,10 +16,15 @@
       }
     }
   }
-  public override void OnFailed() {
+  public override void Open() {
+    base.Open();
+    AudManage.Get(AudManage.laboratory).Stop();
+    AudManage.Get(AudManage.challenge1).Play();
   }
-  public override void OnSolved() {
-    base.OnSolved();
+  public override void Close() {
+    base.Close();
+    AudManage.Get(AudManage.challenge1).Stop();
+    AudManage.Get(AudManage.laboratory).Play();
   }
   
 }
